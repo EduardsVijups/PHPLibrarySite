@@ -17,6 +17,7 @@ $books = getAllBooks();
 <head>
     <meta charset="UTF-8">
     <title>Bibliotēkas sistēma</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <!-- Pievienot grāmatu -->
