@@ -35,7 +35,7 @@ $books = getAllBooks();
         $takenBooks = getTakenBooks($_SESSION['user']['id']);
     ?>
 
-    <h2>Bibiliotēka</h2>
+    <h2>Bibliotēka</h2>
     <ul>
         <?php while ($book = $books->fetchArray()): ?>
             <li><?= htmlspecialchars($book['title']) ?> - <?= htmlspecialchars($book['author']) ?>
@@ -43,7 +43,7 @@ $books = getAllBooks();
                 <p>(Pieejams)</p>
                 <form method="POST" action="borrow.php">
                     <input type="hidden" name="book_id" value="<?= $book['id'] ?>">
-                    <button type="submit">Aizņemties</button>
+                    <button type="submit">Aizņemt</button>
                 </form>
             <?php elseif ($book['status'] == 'borrowed'): ?>
                 <p>(Aizņemts līdz <?= $book['due_date'] ?>)</p>
@@ -64,6 +64,6 @@ $books = getAllBooks();
             </li>
         <?php endwhile; ?>
     </ul>
-    <a href="logout.php">Log Out</a>
+    <a href="logout.php" style="margin-bottom: 5%">Log Out</a>
 </body>
 </html>

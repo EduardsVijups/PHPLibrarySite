@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
     $result = $check->execute()->fetchArray();
 
     if ($result) {
-        echo "⚠Šis e-pasts jau ir reģistrēts!";
+        echo "Šis e-pasts jau ir reģistrēts!";
     } else {
         // Pievieno lietotāju
         $stmt = $conn->prepare("INSERT INTO users (email, password) VALUES (:email, :password)");
@@ -30,12 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
 <head>
     <meta charset="UTF-8">
     <title>Reģistrācija</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <h2>Reģistrācija</h2>
     <form method="POST">
         <input type="email" name="email" placeholder="E-pasts" required>
         <input type="password" name="password" placeholder="Parole" required>
+        <p></p>
         <button type="submit" name="register">Reģistrēties</button>
     </form>
     <p>Jau esi reģistrējies? <a href="login.php">Pieslēgties</a></p>
