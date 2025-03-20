@@ -13,14 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
     $result = $check->execute()->fetchArray();
 
     if ($result) {
-        echo "⚠️ Šis e-pasts jau ir reģistrēts!";
+        echo "⚠Šis e-pasts jau ir reģistrēts!";
     } else {
         // Pievieno lietotāju
         $stmt = $conn->prepare("INSERT INTO users (email, password) VALUES (:email, :password)");
         $stmt->bindValue(':email', $email, SQLITE3_TEXT);
         $stmt->bindValue(':password', $password, SQLITE3_TEXT);
         $stmt->execute();
-        echo "✅ Reģistrācija veiksmīga! <a href='login.php'>Pieslēgties</a>";
+        echo "Reģistrācija veiksmīga! <a href='login.php'>Pieslēgties</a>";
     }
 }
 ?>
