@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         header("Location: index.php"); // Novirza uz galveno lapu
         exit();
     } else {
-        echo "⚠️ Nepareizs e-pasts vai parole!";
+        echo "Nepareizs e-pasts vai parole!";
     }
 }
 ?>
