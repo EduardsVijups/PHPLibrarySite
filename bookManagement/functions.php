@@ -21,4 +21,7 @@ function handlePostRequests() {
         $conn->exec("INSERT INTO books (title, author, status) VALUES ('$title', '$author', 'available')");
     }
 }
+function generateToken() {
+    return bin2hex(random_bytes(16));
+}
 ?>
