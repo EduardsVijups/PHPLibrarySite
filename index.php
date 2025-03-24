@@ -1,9 +1,9 @@
 <?php
 session_start();
-include("config.php"); // Savienojums ar datubāzi
-include("functions.php"); // Funkcijas
+include("config/config.php"); // Savienojums ar datubāzi
+include("bookManagement/functions.php"); // Funkcijas
 if (!isset($_SESSION['user'])) {
-    header("Location: login.php");
+    header("Location: account/login.php");
     exit();
 }
 // Apstrādā POST pieprasījumus (piem., grāmatas pievienošana)
@@ -35,11 +35,11 @@ $pendingBooks = getPendingBooks();
                 <?php if ($pendingBook['status'] == 'pending'): ?>
                     <?= htmlspecialchars($pendingBook['title']) ?> - <?= htmlspecialchars($pendingBook['author']) ?>
                     <p>(Pārbaudiet vai grāmata ir nodota)</p>
-                    <form method="POST" action="approve.php">
+                    <form method="POST" action="bookmanagement/admin/approve.php">
                         <input type="hidden" name="book_id" value="<?= $pendingBook['id'] ?>">
                         <button type="submit">Ir nodota</button>
                     </form>
-                    <form method="POST" action="decline.php">
+                    <form method="POST" action="bookmanagement/admin/decline.php">
                         <input type="hidden" name="book_id" value="<?= $pendingBook['id'] ?>">
                         <button type="submit">Nav nodota</button>
                     </form>
@@ -60,7 +60,7 @@ $pendingBooks = getPendingBooks();
             <li><?= htmlspecialchars($book['title']) ?> - <?= htmlspecialchars($book['author']) ?>
             <?php if ($book['status'] == 'available'): ?>
                 <p>(Pieejams)</p>
-                <form method="POST" action="borrow.php">
+                <form method="POST" action="bookmanagement/user/borrow.php">
                     <input type="hidden" name="book_id" value="<?= $book['id'] ?>">
                     <button type="submit">Aizņemt</button>
                 </form>
@@ -77,7 +77,7 @@ $pendingBooks = getPendingBooks();
         <?php while ($takenBook = $takenBooks->fetchArray()): ?>
             <li><?= htmlspecialchars($takenBook['title']) ?> - <?= htmlspecialchars($takenBook['author']) ?> (Atgriezt līdz <?= $takenBook['due_date'] ?>)
                 <?php if ($takenBook['status'] == 'borrowed' && $takenBook['userID'] == $_SESSION['user']['id']): ?>
-                    <form method="POST" action="return.php">
+                    <form method="POST" action="bookmanagement/user/return.php">
                         <input type="hidden" name="book_id" value="<?= $takenBook['id'] ?>">
                         <button type="submit">Atgriezt</button>
                     </form>
@@ -85,6 +85,6 @@ $pendingBooks = getPendingBooks();
             </li>
         <?php endwhile; ?>
     </ul>
-    <a href="logout.php" style="margin-bottom: 5%">Log Out</a>
+    <a href="account/logout.php" style="margin-bottom: 5%">Log Out</a>
 </body>
 </html>
